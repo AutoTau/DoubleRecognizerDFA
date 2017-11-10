@@ -13,15 +13,53 @@
 
 #include "machine.h"
 
+/*
+ * Adj List ([TARGET], [PARAMETERS FOR TARGET])
+ * 0 [A]: [B, 0-9] -> [C, +/-] -> [D, .] -> NULL
+ * 1 [B]: [B, 0-9] -> [F, e/E] -> [I, .] -> NULL
+ * 2 [C]: [B, 0-9] -> [D, .] -> NULL
+ * 3 [D]: [E, 0-9] -> NULL
+ * 4 [E]: [E, 0-9] -> [F, e/E] -> NULL
+ * 5 [F]: [F, 0-9] -> [G, 0-9] -> [H, +/-] -> NULL
+ * 6 [G]: [G, 0-9] -> NULL
+ * 7 [H]: [G, 0-9] -> NULL
+ * 8 [I]: [I, 0-9] -> [F, e/E] -> NULL
+ */
+
 //Creates the state machine 
 //Input: A State array by reference
 //Output: N/A
 void CreateMachine(State * &machine){
+    //A temp pointer to initialize each Edge
+    Edge temp = NULL;
+
     //State A
     machine[0].name = 'A'; 
     machine[0].accepting = false;
-    machine[0].head = new Edge;
-    machine[0].head->index = 1; 
+    temp = machine[0].head;
+    //3 because A only has 3 non-dead edges
+    for(int i = 0; i <= 3; ++i){
+        //Create a new Edge here
+        temp = malloc(Edge);
+        //Move the temp pointer to the next spot
+        temp = temp->next;
+    }
+    //Cap off the list
+    temp->next = NULL;
+    //Point the temp back at the head
+    temp = machine[0].head;
+    //Edge going to B
+    temp->index = 1;
+    temp->cond = "0123456789";
+    temp = temp->next;
+    //Edge going to C 
+    temp->index = 2;
+    temp->cond = "+-";
+    temp = temp->next;
+    //Edge going to D
+    temp->index = 3;
+    temp->cond = ".";
+    temp->next = NULL;
 
     //State B
     machine[1].name = 'B';
