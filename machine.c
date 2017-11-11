@@ -27,19 +27,6 @@
  * 9 [DEAD]
  */
 
-struct State
-{
-    char name = NULL;
-    bool accepting = false;
-    edge * head = NULL;
-}
-
-struct Edge
-{
-    int index = 0;
-    String cond = NULL;
-    edge * next = NULL;
-}
 
 //Creates the state machine
 //Input: A State array by reference
