@@ -12,26 +12,35 @@
 ////////////////////////////////////////////
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
-//Represents the states
-struct State
-{
-    char name = NULL;
-    bool accepting = false;
-    Edge * head = NULL;
-}
+typedef struct Edge Edge;
+typedef struct State State;
 
 //Represents the connections between states
-struct Edge
+typedef struct Edge
 {
-    int index = 0;
-    String cond = NULL;
-    Edge * next = NULL;
-}
+    int index;
+    char * cond;
+    //= new char[10];
+    //strcpy(cond,newcond);
+    Edge * next;// = NULL;
+}Edge;
+
+//Represents the states
+typedef struct State
+{
+    char name;
+    bool accepting;
+    Edge * head;// = NULL;
+
+}State;
+
 
 
 //Creates the state machine 
 //Input: A State array by reference
 //Output: N/A
- void CreateMachine(State * &machine);
+ void CreateMachine(State * machine);

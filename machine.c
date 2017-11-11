@@ -31,12 +31,12 @@
 //Creates the state machine
 //Input: A State array by reference
 //Output: N/A
-void CreateMachine(State * &machine){
+void CreateMachine(State * machine){
 
  ////////// State A /////////////////////
  
  //A temp pointer to initialize each Edge
-    Edge temp = NULL;
+    Edge * temp = NULL;
 
     machine[0].name = 'A'; 
     machine[0].accepting = false;
@@ -68,7 +68,7 @@ void CreateMachine(State * &machine){
    
 
 ///////// State B /////////////////////////
-    Edge temp2 = NULL;
+    Edge * temp2 = NULL;
 
     machine[1].name = 'B';
     machine[1].accepting = true;
@@ -96,13 +96,13 @@ void CreateMachine(State * &machine){
     temp2 = temp2->next;
     //Edge going to F
     temp2->index = 5;
-    temp2->cond = "Ee" //fix this
+    temp2->cond = "Ee"; //fix this
     temp2->next = NULL;
 
 
 
 //////// State C /////////////////////
-    Edge temp3 = NULL;
+    Edge * temp3 = NULL;
 
     machine[2].name = 'C';
     machine[2].accepting = false;
@@ -123,7 +123,7 @@ void CreateMachine(State * &machine){
 
     //Edge going to B
     temp3->index = 1;
-    temp3->cond = "0123456789"
+    temp3->cond = "0123456789";
     temp3 = temp3->next;
     //Edge going to D
     temp3->index = 3;
@@ -132,7 +132,7 @@ void CreateMachine(State * &machine){
     
 
 ////////// State D //////////////////////
-    Edge temp4 = NULL;
+    Edge * temp4 = NULL;
 
     machine[3].name = 'D';
     machine[3].accepting = false;
@@ -153,7 +153,7 @@ void CreateMachine(State * &machine){
 
 
 ////////// State E ////////////////////
-    Edge temp5;
+    Edge * temp5;
     machine[4].name = 'E';
     machine[4].accepting = true;
 
@@ -177,12 +177,12 @@ void CreateMachine(State * &machine){
 
     //Edge going to F
     temp5->index = 5;
-    temp5->cond = "Ee" //fix this!
+    temp5->cond = "Ee"; //fix this!
     temp5->next = NULL;
 
 
 /////////// State F ///////////////////
-    Edge temp6 = NULL;
+    Edge * temp6 = NULL;
     machine[5].name = 'F';
     machine[5].accepting = false;
     temp6 = machine[5].head;
@@ -211,7 +211,7 @@ void CreateMachine(State * &machine){
 
 
 ////////// State G ////////////////////
-    Edge temp7 = NULL;
+    Edge * temp7 = NULL;
 
     machine[6].name = 'G';
     machine[6].accepting = true;
@@ -227,13 +227,13 @@ void CreateMachine(State * &machine){
 
     //Edge going back to g
     temp7->index = 6;
-    temp7->cond = "0123456789"
+    temp7->cond = "0123456789";
     temp7->next = NULL;
 
 
 
 //////// State H //////////////////////
-    Edge temp8 = NULL;
+    Edge * temp8 = NULL;
     machine[7].name = 'H';
     machine[7].accepting = false;
     temp8 = machine[7].head;
@@ -251,7 +251,7 @@ void CreateMachine(State * &machine){
 
 
 //////// State I /////////////////////
-    Edge temp9 = NULL;
+    Edge * temp9 = NULL;
     machine[8].name = 'I';
     machine[8].accepting = true;
     temp9 = machine[8].head;
