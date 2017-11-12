@@ -50,7 +50,7 @@ void CreateMachine(State * machine){
         temp = temp->next;
     }
     //Cap off the list
-    temp->next = NULL;
+    temp = NULL;
     //Point the temp back at the head
     temp = machine[0].head;
     //Edge going to B
@@ -83,7 +83,7 @@ void CreateMachine(State * machine){
     
     }
 
-    temp2->next = NULL;
+    temp2 = NULL;
     temp2 = machine[1].head;
 
     //Edge going to B
@@ -117,7 +117,7 @@ void CreateMachine(State * machine){
     
     }
 
-    temp3->next = NULL;
+    temp3 = NULL;
 
     temp3 = machine[2].head;
 
@@ -142,8 +142,8 @@ void CreateMachine(State * machine){
     temp4 = (Edge *)malloc(sizeof(Edge));
     temp4 = temp4->next;
 
-    temp4->next = NULL;
-
+    //temp4->next = NULL;
+    temp4 = NULL;
     temp4 = machine[3].head;
 
     //Edge going to E
@@ -165,7 +165,7 @@ void CreateMachine(State * machine){
         temp5 = temp5->next;
     }
 
-    temp5->next = NULL;
+    temp5 = NULL;
 
     temp5 = machine[4].head;
 
@@ -195,7 +195,7 @@ void CreateMachine(State * machine){
         temp6 = temp6->next;
     }
 
-    temp6->next = NULL;
+    temp6 = NULL;
 
     temp6 = machine[5].head;
 
@@ -221,7 +221,8 @@ void CreateMachine(State * machine){
     //State G has 1 non-dead edge
     temp7 = (Edge *)malloc(sizeof(Edge));
 
-    temp7->next = NULL;
+    //temp7->next = NULL;
+    temp7 = NULL;
     
     temp7 = machine[6].head;
 
@@ -241,7 +242,8 @@ void CreateMachine(State * machine){
     //State H has 1 non-dead edge
     temp8 = (Edge *)malloc(sizeof(Edge));
 
-    temp8->next = NULL;
+    //temp8->next = NULL;
+    temp8 = NULL;
 
     temp8 = machine[7].head;
 
@@ -264,7 +266,7 @@ void CreateMachine(State * machine){
         temp = temp->next;
     }
     
-    temp9->next = NULL;
+    temp9 = NULL;
     temp9 = machine[8].head;
 
     //Edge going back to I
