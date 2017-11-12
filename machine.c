@@ -45,7 +45,7 @@ void CreateMachine(State * machine){
     for(int i = 0; i < 3; ++i)
     {
         //Create new edge
-        temp = malloc(Edge);
+        temp = (Edge *)malloc(sizeof(Edge));
         //Move the temp pointer to the next spot
         temp = temp->next;
     }
@@ -77,7 +77,7 @@ void CreateMachine(State * machine){
     //Only 3 non-dead edges
     for(int i = 0; i < 3; ++i)
     {
-        temp2 = malloc(Edge);
+        temp2 = (Edge *)malloc(sizeof(Edge));
         
         temp2 = temp2->next;
     
@@ -111,7 +111,7 @@ void CreateMachine(State * machine){
     //Only 2 non-dead edges
     for(int i = 0; i < 2; ++i)
     {
-        temp3 = malloc(Edge);
+        temp3 = (Edge *)malloc(sizeof(Edge));
         
         temp3 = temp3->next;
     
@@ -139,7 +139,7 @@ void CreateMachine(State * machine){
     temp4 = machine[3].head;
 
     //D has only 1 non-dead edge
-    temp4 = malloc(Edge);
+    temp4 = (Edge *)malloc(sizeof(Edge));
     temp4 = temp4->next;
 
     temp4->next = NULL;
@@ -160,7 +160,7 @@ void CreateMachine(State * machine){
     //State E has 2 non-dead edges
     for(int i = 0; i < 2; ++i)
     {
-        temp5 = malloc(Edge);
+        temp5 = (Edge *)malloc(sizeof(Edge));
 
         temp5 = temp5->next;
     }
@@ -190,7 +190,7 @@ void CreateMachine(State * machine){
     //State F has 2 non-dead edges
     for(int i = 0; i < 2; ++i)
     {
-        temp6 = malloc(Edge);
+        temp6 = (Edge *)malloc(sizeof(Edge));
 
         temp6 = temp6->next;
     }
@@ -219,7 +219,7 @@ void CreateMachine(State * machine){
 
 
     //State G has 1 non-dead edge
-    temp7 = malloc(Edge);
+    temp7 = (Edge *)malloc(sizeof(Edge));
 
     temp7->next = NULL;
     
@@ -239,7 +239,7 @@ void CreateMachine(State * machine){
     temp8 = machine[7].head;
 
     //State H has 1 non-dead edge
-    temp8 = malloc(Edge);
+    temp8 = (Edge *)malloc(sizeof(Edge));
 
     temp8->next = NULL;
 
@@ -259,7 +259,7 @@ void CreateMachine(State * machine){
     //State I has 2 non-dead edges
     for(int i = 0; i < 2; ++i)
     {
-        temp9 = malloc(edge);
+        temp9 = (Edge *)malloc(sizeof(Edge));
 
         temp = temp->next;
     }
