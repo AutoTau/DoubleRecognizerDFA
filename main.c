@@ -6,11 +6,14 @@
 //      Written by:                       //
 //      Ben Portis and Alexander Mason    //
 //                                        //
+//      File:                             //
+//      main.c                            //
+//                                        //
 ////////////////////////////////////////////
 
 #include <stdio.h>
 #include <string.h>
-#include "machine.h";
+#include "machine.h"
 
 /*
  * Adj List ([TARGET], [PARAMETERS FOR TARGET])
@@ -27,16 +30,16 @@
 
 int main(int argc,  char * argv[])
 {
-    State * machine = malloc(State[9]);
+    State * machine = malloc(sizeof(State[9]));
     CreateMachine(machine);
     //If there is a file to open as an argument
-    if(c == 2){ 
+    if(argc == 2){ 
         //Grab the file name from argv[1]
-        char * tempName = char[100];
+        char * tempName = (char *)sizeof(char[100]);
         strcpy(tempName, argv[1]);
 
         //Cut off extra
-        char * fileName = new char[strlen(tempName + 1)];
+        char * fileName = (char *)malloc(sizeof(char[strlen(tempName + 1)]));
         FILE *file = fopen (fileName,"r");
 
         if(file != NULL){
@@ -48,36 +51,30 @@ int main(int argc,  char * argv[])
                 int currState = 0;
                 //Make sure we aren't dead
                 bool dead = false;
-                
+                int consume;
                 //While we haven't hit the dead state an there are more chars
-                while(!dead && consume != '\n'){
+                while(!dead && (consume = getchar()) != '\n'){
                     //Go to the beginning of the list of edges for current state
-                    Edge temp = machine[currState].head;
-
+                    Edge * temp = machine[currState].head;
+                    char c = consume;
                     //If we haven't reached the end of the edges in an edge list
-                    if(temp != NULL){
+                    if(&temp != NULL){
                         //If I should follow this edge
-                        if(strstr(temp->cond, consume)){
+                        if(strstr((*temp).cond, &c))
                             //Move to the new state after consuming
-                            currState = temp->index;
-                        }
-                        else{
+                            currState = (*temp).index; 
+                        else
                             //Shouldn't follow edge, go to next edge
-                            temp = temp->next;
-                        }
+                            temp = (*temp).next;
                     }
-                    else{
+                    else
                         //End of an edge list, hit dead state
                         dead = true;
-                    }
-
                     //If the current state is accepting and we aren't dead
-                    if(machine[currState].accepting && !dead){
+                    if(machine[currState].accepting && !dead)
                         printf("Accept\n\n");
-                    }
-                    else{
+                    else
                         printf("Reject\n\n");
-                    }
                 }
                 fputs(linez, stdout); //write out line by line
             }
