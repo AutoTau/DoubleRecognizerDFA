@@ -19,15 +19,15 @@
 
 /*
  * Adj List ([TARGET], [PARAMETERS FOR TARGET])
- * 0 [A]: [B, 0-9] -> [C, +/-] -> [D, .] -> NULL
- * 1 [B]: [B, 0-9] -> [F, e/E] -> [I, .] -> NULL
- * 2 [C]: [B, 0-9] -> [D, .] -> NULL
- * 3 [D]: [E, 0-9] -> NULL
- * 4 [E]: [E, 0-9] -> [F, e/E] -> NULL
- * 5 [F]: [F, 0-9] -> [G, 0-9] -> [H, +/-] -> NULL
- * 6 [G]: [G, 0-9] -> NULL
- * 7 [H]: [G, 0-9] -> NULL
- * 8 [I]: [I, 0-9] -> [F, e/E] -> NULL
+  * 0 [A]: [B, 0-9] -> [C, +/-] -> [D, .] -> NULL
+ A* 1 [B]: [B, 0-9] -> [F, e/E] -> [I, .] -> NULL        
+  * 2 [C]: [B, 0-9] -> [D, .] -> NULL
+  * 3 [D]: [E, 0-9] -> NULL
+ A* 4 [E]: [E, 0-9] -> [F, e/E] -> NULL
+  * 5 [F]: [F, 0-9] -> [G, 0-9] -> [H, +/-] -> NULL
+ A* 6 [G]: [G, 0-9] -> NULL
+  * 7 [H]: [G, 0-9] -> NULL
+ A* 8 [I]: [I, 0-9] -> [F, e/E] -> NULL
  */
 
 typedef struct Edge Edge;
@@ -38,9 +38,7 @@ typedef struct Edge
 {
     int index;
     char * cond;
-    //= new char[10];
-    //strcpy(cond,newcond);
-    Edge * next;// = NULL;
+    Edge * next;
 }Edge;
 
 //Represents the states
@@ -48,7 +46,7 @@ typedef struct State
 {
     char name;
     bool accepting;
-    Edge * head;// = NULL;
+    Edge * head;
 
 }State;
 
@@ -64,8 +62,6 @@ int main(int argc,  char * argv[])
         machine[i].head = NULL;
 
     }
-    //CreateMachine(machine);
-    
 
 ////////// State A ////////////////////////
  
@@ -75,7 +71,6 @@ int main(int argc,  char * argv[])
     machine[0].name = 'A'; 
     machine[0].accepting = false;
     machine[0].head = (Edge *)malloc(sizeof(Edge));
-    //machine[0].head->next = malloc(sizeof(*next)); 
     temp = machine[0].head;
     //3 because A only has 3 non-dead edges
     for(int i = 1; i < 3; ++i)
@@ -107,7 +102,6 @@ int main(int argc,  char * argv[])
     temp->cond = ".";
     temp->next = NULL;
    
-    printf("end of state A\n");
 ///////// State B ////////////////////////////
     Edge * temp2 = NULL;
 
@@ -117,16 +111,12 @@ int main(int argc,  char * argv[])
     temp2 = machine[1].head;
     
     //Only 3 non-dead edges
-    for(int i = 1; i < 3; ++i)
-    {
-
+    for(int i = 1; i < 3; ++i){
         temp2->next = (Edge *)malloc(sizeof(Edge));
         temp2->index = 0;
         temp2->cond = NULL;
         temp2 = temp2->next;
-    
     }
-
     temp2 = NULL;
     temp2 = machine[1].head;
 
@@ -140,10 +130,8 @@ int main(int argc,  char * argv[])
     temp2 = temp2->next;
     //Edge going to F
     temp2->index = 5;
-    temp2->cond = "Ee"; //fix this
+    temp2->cond = "Ee"; 
     temp2->next = NULL;
-
-    printf("end of state B\n");
 
 
 //////// State C ////////////////////////////
@@ -178,7 +166,6 @@ int main(int argc,  char * argv[])
     temp3->cond = ".";
     temp3->next = NULL; 
     
-    printf("end of state C\n");
 
 ////////// State D //////////////////////
   //  Edge * temp4 = NULL;
@@ -187,17 +174,10 @@ int main(int argc,  char * argv[])
     machine[3].accepting = false;
     machine[3].head = (Edge *)malloc(sizeof(Edge));
 
-    //D has only 1 non-dead edge
-    //temp4 = (Edge *)malloc(sizeof(Edge));
-    //temp4->next = NULL;;
-
-   // temp4 = machine[3].head;
-
     //Edge going to E
     machine[3].head->index = 4;
     machine[3].head->cond = "0123456789";
     machine[3].head->next = NULL;
-    printf("end of state D\n");
 
 ////////// State E ////////////////////
     Edge * temp5;
@@ -230,7 +210,6 @@ int main(int argc,  char * argv[])
     temp5->cond = "Ee"; //fix this!
     temp5->next = NULL;
 
-    printf("end of state E\n");
 
 /////////// State F ///////////////////
     Edge * temp6 = NULL;
@@ -263,7 +242,6 @@ int main(int argc,  char * argv[])
     temp6->cond  = "+-";
     temp6->next = NULL;
 
-    printf("end of state F\n");
 
 ////////// State G ////////////////////
     Edge * temp7 = NULL;
@@ -278,18 +256,15 @@ int main(int argc,  char * argv[])
     machine[6].head->next = NULL;
 
 
-    printf("end of state G\n");
-
 //////// State H //////////////////////
     machine[7].name = 'H';
     machine[7].accepting = false;
     machine[7].head = (Edge *)malloc(sizeof(Edge));
 
-    machine[7].head->index = 7;
+    machine[7].head->index = 6;
     machine[7].head->cond = "0123456789";
     machine[7].head->next = NULL;
 
-    printf("end of state H\n");
 
 //////// State I /////////////////////
     Edge * temp9 = NULL;
@@ -320,61 +295,80 @@ int main(int argc,  char * argv[])
     temp9->cond = "eE";
     temp9->next = NULL;
 
+/*
+    printf("--STATE DIAGRAM--");
+//Printing out the machine
+for(int i = 0; i < 9; ++i){
 
-    printf("end of state I\n");
+    printf("\n\nState: %c\n", machine[i].name);
+    Edge * checkTemp = machine[i].head;
+    while(checkTemp != NULL)
+    {
+        printf("\nEdge Target: %d", checkTemp->index);
+        printf("\nEdge Cond: %s", checkTemp->cond);
+        checkTemp = checkTemp->next;
+    }
+}
+*/
 
     //If there is a file to open as an argument
     if(argc == 2){ 
         //Grab the file name from argv[1]
         char tempName[100];
         strcpy(tempName, argv[1]);
-        printf("%s\n",tempName);
-        //Cut off extra
-        char * fileName = (char *)malloc(sizeof(char[strlen(tempName + 1)]));
-        printf("%s\n",fileName);
         FILE *file = fopen(tempName,"r");
 
 
         if(file != NULL){
-            char linez[256];
+            char line[256];
 
             //read line by line 
-            while(fgets(linez, sizeof linez, file) != NULL) {
+            while(fgets(line, sizeof line, file) != NULL) {
                 //Index number indicating current state
                 int currState = 0;
                 //Make sure we aren't dead
                 bool dead = false;
-                int consume;
+                int i = 0;
+                printf("\n%s", line);
+                Edge * holdState = machine[currState].head;
                 //While we haven't hit the dead state an there are more chars
-                while(!dead && (consume = getchar()) != '\n'){
+                while(!dead && line[i] != '\n'){
                     //Go to the beginning of the list of edges for current state
-                    Edge * temp = machine[currState].head;
-                    char c = consume;
                     //If we haven't reached the end of the edges in an edge list
-                    if(&temp != NULL){
+                    if(holdState != NULL){
+                        //printf("Current Conditional: %s\n", holdState->cond);
                         //If I should follow this edge
-                        if(strstr((*temp).cond, &c))
+                        //printf("Current Consume: %c\n", line[i]);
+                        if(strchr((*holdState).cond, line[i])){
                             //Move to the new state after consuming
-                            currState = (*temp).index; 
-                        else
+                            currState = (*holdState).index; 
+                            ++i;
+                            //printf("New State: %c\n", machine[currState].name);
+                            holdState = machine[currState].head;
+                        }
+                        else{
                             //Shouldn't follow edge, go to next edge
-                            temp = (*temp).next;
+                            holdState = (*holdState).next;
+                            //printf("Held at State: %c\n", machine[currState].name);
+                            //printf("Keep Consuming!\n");
+                        }
                     }
                     else
                         //End of an edge list, hit dead state
                         dead = true;
-                    //If the current state is accepting and we aren't dead
-                    if(machine[currState].accepting && !dead)
-                        printf("Accept\n\n");
-                    else
-                        printf("Reject\n\n");
                 }
-                fputs(linez, stdout); //write out line by line
+
+                //If the current state is accepting and we aren't dead
+                if(machine[currState].accepting && !dead)
+                    printf("Accept\n");
+                else
+                    printf("Reject\n");
+
             }
             fclose(file);
         }
         else{
-            perror(fileName);//if file didn't open
+            perror(tempName);//if file didn't open
         }
     }else{
         printf("No file specified. Exiting...");
