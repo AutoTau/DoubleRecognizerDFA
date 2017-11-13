@@ -15,7 +15,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-//#include "machine.h"
 
 /*
  * Adj List ([TARGET], [PARAMETERS FOR TARGET])
@@ -81,7 +80,6 @@ int main(int argc,  char * argv[])
         //Move the temp pointer to the next spot
         temp->index = 0;
         temp->cond = NULL;
-        //temp->next = NULL;
 
         temp = temp->next;
     }
@@ -321,7 +319,6 @@ for(int i = 0; i < 9; ++i){
 
         if(file != NULL){
             char line[256];
-
             //read line by line 
             while(fgets(line, sizeof line, file) != NULL) {
                 //Index number indicating current state
@@ -336,21 +333,16 @@ for(int i = 0; i < 9; ++i){
                     //Go to the beginning of the list of edges for current state
                     //If we haven't reached the end of the edges in an edge list
                     if(holdState != NULL){
-                        //printf("Current Conditional: %s\n", holdState->cond);
                         //If I should follow this edge
-                        //printf("Current Consume: %c\n", line[i]);
                         if(strchr((*holdState).cond, line[i])){
                             //Move to the new state after consuming
                             currState = (*holdState).index; 
                             ++i;
-                            //printf("New State: %c\n", machine[currState].name);
                             holdState = machine[currState].head;
                         }
                         else{
                             //Shouldn't follow edge, go to next edge
                             holdState = (*holdState).next;
-                            //printf("Held at State: %c\n", machine[currState].name);
-                            //printf("Keep Consuming!\n");
                         }
                     }
                     else
@@ -361,7 +353,7 @@ for(int i = 0; i < 9; ++i){
                 //If the current state is accepting and we aren't dead
                 if(machine[currState].accepting && !dead)
                     printf("Accept\n");
-                else
+                else 
                     printf("Reject\n");
 
             }
